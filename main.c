@@ -4,8 +4,6 @@
 
 unsigned int get_password_length(unsigned int min_password_length, unsigned int max_password_length) 
 {
-    printf("Passwort-Generator\n");
-    
     unsigned int password_length;
     while (1)
     {
@@ -50,14 +48,8 @@ int get_random_number(int min, int max)
     return (rand() % (max - min + 1)) + min;
 }
 
-int main() 
-{    
-    const int MIN_PASSWORD_LENGTH = 8;
-    const int MAX_PASSWORD_LENGTH = 20;
-    
-    unsigned int password_length = get_password_length(MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH);
-    unsigned char include_special_characters = get_include_special_characters();
-    
+char* get_password(unsigned int password_length, unsigned char include_special_characters)
+{
     const char* UPPERCASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const char* LOWERCASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
     const char* DIGITS = "0123456789";
@@ -74,6 +66,19 @@ int main()
         password[i] = CATEGORIES[random_category][random_symbol];
     }
     
+    return password;
+}
+
+int main() 
+{    
+    printf("Passwort-Generator\n");
+    
+    const int MIN_PASSWORD_LENGTH = 8;
+    const int MAX_PASSWORD_LENGTH = 20;
+    
+    unsigned int password_length = get_password_length(MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH);
+    unsigned char include_special_characters = get_include_special_characters();
+    char* password = get_password(password_length, include_special_characters);
     printf("Passwort: %s", password);
     
     free(password);
